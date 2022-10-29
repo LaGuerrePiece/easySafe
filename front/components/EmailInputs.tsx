@@ -26,11 +26,22 @@ export default function EmailInputs() {
 
 
   const onSubmit = async (data: any) => {
-    const success = await createSafeRequest({
-      ...data,
-      emails : data.emails.map((obj: any) => obj.email)
-    })
-    setSuccess(success)
+    console.log(data)
+
+    data.emails.forEach((email: String)  => {
+
+      console.log(email);
+      // functionToSendEmail(email);
+      
+    });
+
+    //http://localhost:3000/api/createUser
+
+    // const success = await createSafeRequest({
+    //   ...data,
+    //   emails : data.emails.map((obj: any) => obj.email)
+    // })
+    // setSuccess(success)
   }
 
   return (
