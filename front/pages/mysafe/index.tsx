@@ -21,14 +21,16 @@ function App() {
 
   // GET DATA FROM SAFE's API
 
-  const [txData, setTxData] = useState<any>();
+  const [sgn, setSgn] = useState<any>();
   async function updateTxInfo() {
     const safe = await getUserSafes("0x0a7792C2fD7bF4bC25f4d3735E8aD9f59570aCBe");
     console.log("Safe:", safe);
     console.log("Safe[0]:", safe.safes[0]);
     const txs = await getSafeTxs(safe.safes)
     console.log("txs", txs)
-    setTxData(txs.results[0])
+    console.log("safeTxHash: ", txs.results[0].safeTxHash);
+    const signature = await signHash(txs.results[0].safeTxHash);
+    setSgn(signature)
   }
 
   useEffect(() => {
@@ -36,7 +38,7 @@ function App() {
   }, [])
 
 
-  console.log("txData: ", txData);
+  console.log("signature: ", sgn);
 
 
 
@@ -116,6 +118,16 @@ function App() {
     const rpc = new RPC(provider);
     const signedMessage = await rpc.signMessage();
     console.log(signedMessage);
+  };
+
+  const signHash = async (messageHash: string) => {
+    if (!provider) {
+      console.log("provider not initialized yet");
+      return;
+    }
+    const rpc = new RPC(provider);
+    const signedMessage = await rpc.signHash(messageHash);
+    console.log("signedMessage", signedMessage);
   };
 
   const loggedInView = (

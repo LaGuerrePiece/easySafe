@@ -95,6 +95,22 @@ export default class EthereumRpc {
     }
   }
 
+  async signHash(messageHash: string) {
+    try {
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      const signer = ethersProvider.getSigner();
+
+      let messageHashBytes = ethers.utils.arrayify(messageHash)
+      // Sign the message
+      let flatSig = await signer.signMessage(messageHashBytes);
+      // const signedMessage = await signer.signMessage(originalMessage);
+
+      return flatSig;
+    } catch (error) {
+      return error as string;
+    }
+  }
+
   async getPrivateKey(): Promise<any> {
     try {
       const privateKey = await this.provider.request({
