@@ -113,7 +113,7 @@ function App() {
   return (
     <div className="container">
       <h1 className="title">
-        {"Create your "}
+        {"Sign TX on your "}
         <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
           Safe
         </a>
