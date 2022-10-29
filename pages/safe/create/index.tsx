@@ -1,4 +1,6 @@
 import { useRouter } from 'next/router'
+import { Button, ButtonGroup } from '@chakra-ui/react'
+
 import { mailjet } from 'node-mailjet'
 
 
@@ -36,7 +38,13 @@ const Create = () => {
       .catch((err: any) => {
         console.log(err.statusCode)
       })
-    
+
+      return <p>
+      <Button colorScheme='blue'>Button</Button>
+      Safe ID: <br />
+    </p>
 }
+  
+    
 
 export default Create
