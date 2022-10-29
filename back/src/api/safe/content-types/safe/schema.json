@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "safes",
+  "info": {
+    "singularName": "safe",
+    "pluralName": "safes",
+    "displayName": "Safe"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "UID": {
+      "type": "uid"
+    },
+    "address": {
+      "type": "string"
+    },
+    "user_safe": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::easy-safe.easy-safe",
+      "inversedBy": "safes"
+    }
+  }
+}
