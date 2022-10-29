@@ -117,9 +117,17 @@ const Safe = () => {
       <>
             {!safeData?.created &&
                 <div>
-                    The Safe has not yet been created
+                    The Safe has not yet been deployed
                     <SafeCard data={safeData} />
                     {userData?.address == safeData?.creator &&
+                    // Si user = signataire, demande de valider la création ⇒ envoie à API confirmation
+                        <div>
+
+
+                        </div>
+                    }
+                    {userData?.address != safeData?.creator &&
+                    // Si user != créateur, affiche qui a signé et si tout le monde a signé, propose de faire la tx de création
                         <div>
 
 
@@ -127,15 +135,34 @@ const Safe = () => {
                     }
             
             
-            
                 </div>
             }
 
-            {/* {safeData?.created &&
+            {safeData?.created &&
+                <div>
+                    The Safe has been deployed
+                    <SafeCard data={safeData} />
+                    {userData?.address == safeData?.creator &&
+                    // Si user = créateur, affiche les tx en cours et un bouton pour en créer
+                        <div>
+
+
+                        </div>
+                    }
+                    {userData?.address != safeData?.creator &&
+                    // Si user != créateur et tx en attente, l’affiche avec son descriptif, et boutons pour accepter ou refuser.
+                    // Puis envoie réponse à api
+                        <div>
+
+
+                        </div>
+                    }
+            
+            
+                </div>
           
           
-          
-            } */}
+            }
 
 
         <div className='p-4'>
