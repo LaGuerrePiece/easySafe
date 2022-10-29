@@ -4,6 +4,8 @@ import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 // import RPC from "./api/web3RPC"; // for using web3.js
 import RPC from "./api/ethersRPC"; // for using ethers.js
 
+import Link from 'next/link'
+
 const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4"; // get from https://dashboard.web3auth.io
 
 function App() {
@@ -127,6 +129,11 @@ function App() {
   };
   const loggedInView = (
     <>
+    <ul>
+      <li>
+        <Link href="/safe/1">Join</Link>
+      </li>
+    </ul>
       <button onClick={getUserInfo} className="card">
         Get User Info
       </button>
