@@ -31,24 +31,22 @@ module.exports = createCoreController('api::easy-safe-user.easy-safe-user', ({ s
   async create(ctx) {
     // some custom logic here
 
-    await strapi.plugins['email'].services.email.send({
+    /*await strapi.plugins['email'].services.email.send({
       to: 'baris.florent@gmail.com',
       from: 'no-reply-easysafe@email.com',
-      subject: 'Comment posted that contains a bad words',
+      subject: 'Sent from front !',
       text: `
-          The comment  contain a bad words.
-
-          Comment:
-          ${ctx}
+          Sent from front !
         `,
-    });
-
+    });*/
+    console.log("send mail");
+    //ctx.request.body.UID = "lol";
+    console.log(ctx.request.body);
     // Calling the default core action
-    const { data, meta } = await super.find(ctx);
+    const { data, meta } = await super.create(ctx);
 
     // some more custom logic
-    meta.date = Date.now();
-    console.log("send mail");
+
 
     return { data, meta };
   },

@@ -18,17 +18,20 @@
     "address": {
       "type": "string"
     },
-    "user_safe": {
+    "es_users": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::easy-safe.easy-safe",
-      "inversedBy": "safes"
+      "relation": "oneToMany",
+      "target": "api::easy-safe-user.easy-safe-user",
+      "mappedBy": "safe"
     },
     "numberOfSign": {
       "type": "integer"
     },
     "numberOfUsers": {
       "type": "integer"
+    },
+    "name": {
+      "type": "string"
     }
   }
 }

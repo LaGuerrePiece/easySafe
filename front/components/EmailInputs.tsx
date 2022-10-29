@@ -7,6 +7,7 @@ import { Button, Input, InputGroup, InputLeftAddon,
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from "axios";
+import uuid from 'react-uuid';
 
 const baseURL = "http://localhost:1337/api";
 
@@ -26,15 +27,43 @@ export default function EmailInputs() {
   );
 
   const onSubmit = async (data: any) => {
-    console.log(data)
-    axios.post(baseURL + "/easy-safe-users").then((response) => {
-      console.log(response);
-    });
-    data.emails.forEach((email: String)  => {
-      console.log(email);
-      // functionToSendEmail(email);
+    let safeid = uuid();
+    console.log(data.emails);
+    console.log(Object.entries(data.emails[0]));
+    let i = 0;
+    Object.entries(data.emails[0]).forEach(([key, value], index) => {
+      axios.post(baseURL + "/easy-safe-users",{
+        headers: {
+          // Overwrite Axios's automatically set Content-Type
+          'Content-Type': 'application/json'
+        },
+        data: {
+          "WalletAddress": "0x6fDD4A65EfB02f7974E615a6e70bD9E887959b7d",
+          "email": value,
+          "UID": uuid(),
+          "safe":safeid
+        }
+      }).then((response) => {
+        console.log(response);
+      });
     });
 
+    /*axios.post(baseURL + "/safes",{
+      headers: {
+        // Overwrite Axios's automatically set Content-Type
+        'Content-Type': 'application/json'
+      },
+      data: {
+        "address": "0x6fDD4A65EfB02f7974E615a6e70bD9E887959b7d",
+        "es_users": data.emails[0],
+        "UID": safeid,
+        "numberOfSign": data.numberOfSign,
+        "numberOfUsers": data.numberOfUsers,
+        "name": "SAFENAME"
+      }
+    }).then((response) => {
+      console.log(response);
+    });*/
   }
 
 

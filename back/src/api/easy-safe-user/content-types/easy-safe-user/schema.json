@@ -22,6 +22,12 @@
     },
     "UID": {
       "type": "uid"
+    },
+    "safe": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::safe.safe",
+      "inversedBy": "es_users"
     }
   }
 }

@@ -19,12 +19,6 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::easy-safe-user.easy-safe-user"
-    },
-    "safes": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::safe.safe",
-      "mappedBy": "user_safe"
     }
   }
 }
