@@ -1,10 +1,9 @@
 import { Button, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import { createSafeRequest } from '../utils/utils';
-import { SafeDataFromApi } from '../pages/safe/[sid]';
+import { SafeData } from '../utils/utils';
 
-export default function SafeCard(props: {data: SafeDataFromApi | undefined}) {
+export default function SafeCard(props: {data: SafeData | undefined}) {
   return (
     <div>
       SafeCard

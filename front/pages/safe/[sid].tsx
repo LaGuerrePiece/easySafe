@@ -7,13 +7,10 @@ import RPC from "../api/ethersRPC"; // for using ethers.js
 import EmailInputs from '../../components/EmailInputs';
 import { getSafeDataFromOurApi, SafeData } from "../../utils/utils"
 import SafeCard from "../../components/SafeCard"
+import JoinSafe from "../../components/JoinSafe"
 import Link from 'next/link'
 
 const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4";
-
-export interface SafeDataFromApi extends SafeData {
-    created: boolean
-}
 
 export type UserData = {
     address: string
@@ -31,7 +28,7 @@ const Safe = () => {
       null
     );
 
-    const [safeData, setSafeData] = useState<SafeDataFromApi>();
+    const [safeData, setSafeData] = useState<SafeData>();
     const [userData, setUserData] = useState<UserData>();
 
 
@@ -56,7 +53,7 @@ const Safe = () => {
             setProvider(web3auth.provider);
           }
 
-          const safeDataFromOurApi = await getSafeDataFromOurApi(sid)
+          const safeDataFromOurApi = await getSafeDataFromOurApi(Number(sid))
           
           if (safeDataFromOurApi) {
             setSafeData(safeDataFromOurApi)
@@ -115,30 +112,29 @@ const Safe = () => {
   
     const loggedInView = (
       <>
-            {!safeData?.created &&
+            {!safeData?.deployed &&
                 <div>
                     The Safe has not yet been deployed
                     <SafeCard data={safeData} />
                     {userData?.address == safeData?.creator &&
-                    // Si user = signataire, demande de valider la création ⇒ envoie à API confirmation
+                    // Si user = créateur, affiche qui a signé et si tout le monde a signé, propose de faire la tx de création
                         <div>
-
+                            
+                            
 
                         </div>
                     }
                     {userData?.address != safeData?.creator &&
-                    // Si user != créateur, affiche qui a signé et si tout le monde a signé, propose de faire la tx de création
-                        <div>
+                    // Si user != créateur,  demande de valider la création ⇒ envoie à API confirmation
+                        <JoinSafe userData={userData} safeData={safeData} sid={Number(sid)} />
 
-
-                        </div>
                     }
             
             
                 </div>
             }
 
-            {safeData?.created &&
+            {safeData?.deployed &&
                 <div>
                     The Safe has been deployed
                     <SafeCard data={safeData} />

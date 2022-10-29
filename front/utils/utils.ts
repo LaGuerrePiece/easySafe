@@ -1,3 +1,5 @@
+import { UserData } from "../pages/safe/[sid]";
+
 export const serverUrl = "http://10.1.1.68:37000"
 
 export async function getSafeInfo(safeAddress: string) {
@@ -11,29 +13,54 @@ export async function getSafeInfo(safeAddress: string) {
   }
 }
 
-export async function getSafeDataFromOurApi(sid: string) {
+export async function getSafeDataFromOurApi(sid: number) {
   try {
       const response = await fetch(`${serverUrl}/safes`);
       const data = await response.json();
       console.log("getSafeDataFromOurApi", data);
 
-      return data
+      return data[sid]
     } catch (err) {
       console.log(err)
   }
 }
 
-export type SafeData = {
-  name: string,
-  emails: string[],
-  numberOfSigners: string,
-  creator: string
+export async function editDataFromOurApi(userData: UserData, safeData: SafeData, sid: number) {
+  console.log('editDataFromOurApi', userData, safeData, sid)
+
+  let res = safeData
+  const indexOfUser = res.users.findIndex((obj: any) => obj.email == userData.email)
+  const newData = {
+    "email": res.users[indexOfUser].email,
+    "address": userData.address,
+    "joined": true
+  }
+
+  res.users[indexOfUser] = newData
+
+  console.log('editSafeRequest', res, sid)
+  editSafeRequest(res, sid)
 }
 
-export async function createSafeRequest(safeData: SafeData) {
+
+
+export type SafeData = {
+  name: string,
+  safeAddr: string
+  numberOfSigners: number,
+  numberOfUsers: number,
+  creator: string,
+  deployed: boolean,
+  users: {
+    email: string
+    address: string
+    joined: boolean
+  }[],
+}
+
+export async function createSafeRequest(safeData: any) {
   console.log("createSafeRequest", safeData);
 
-  //editSafe?id=
   try {
       const response = await fetch(`${serverUrl}/createSafe`, {
         method: 'POST',
@@ -48,7 +75,7 @@ export async function createSafeRequest(safeData: SafeData) {
           "numberOfUsers": safeData.emails.length,
           "creator": safeData.creator,
           "deployed": false,
-          "users": safeData.emails.map(email => {
+          "users": safeData.emails.map((email: any) => {
             return {
               "email": email,
               "address": "",
@@ -66,7 +93,35 @@ export async function createSafeRequest(safeData: SafeData) {
   }
 }
 
+export async function editSafeRequest(safeData: SafeData, id: number) {
+  console.log("editSafeRequest", safeData);
 
+  //editSafe?id=
+  try {
+      const response = await fetch(`${serverUrl}/editSafe?id=${id}`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "name": safeData.name,
+          "safeAddr": safeData.safeAddr,
+          "numberOfSigners": safeData.numberOfSigners,
+          "numberOfUsers": safeData.numberOfUsers,
+          "creator": safeData.creator,
+          "deployed": safeData.deployed,
+          "users": safeData.users
+        })
+      });
+
+      if (response.ok) {
+        return 'success'
+      }
+    } catch (err) {
+      console.log(err)
+  }
+}
 
 
 
