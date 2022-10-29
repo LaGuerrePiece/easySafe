@@ -42,7 +42,7 @@ export async function createSafeRequest(safeData: SafeData) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          "name": "nameOfTheSafe",
+          "name": safeData.name,
           "safeAddr": "",
           "numberOfSigners": safeData.numberOfSigners,
           "numberOfUsers": safeData.emails.length,
