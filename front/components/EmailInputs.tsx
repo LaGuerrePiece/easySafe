@@ -28,15 +28,6 @@ export default function EmailInputs(props: {creator: string | undefined, name: s
   const onSubmit = async (data: any) => {
     console.log(data)
 
-    data.emails.forEach((email: String)  => {
-
-      console.log(email);
-      // functionToSendEmail(email);
-      
-    });
-
-    //http://localhost:3000/api/createUser
-
     const success = await createSafeRequest({
       ...data,
       name: props.name,

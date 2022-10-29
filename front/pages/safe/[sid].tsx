@@ -8,6 +8,8 @@ import EmailInputs from '../../components/EmailInputs';
 import { getSafeDataFromOurApi, SafeData } from "../../utils/utils"
 import SafeCard from "../../components/SafeCard"
 import JoinSafe from "../../components/JoinSafe"
+import LaunchTX from "../../components/LaunchTX"
+import ApproveOrDiscardTX from "../../components/ApproveOrDiscardTX"
 import Link from 'next/link'
 
 const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4";
@@ -115,43 +117,36 @@ const Safe = () => {
             {!safeData?.deployed &&
                 <div>
                     The Safe has not yet been deployed
-                    <SafeCard data={safeData} />
-                    {userData?.address == safeData?.creator &&
+                    {/* <SafeCard data={safeData} /> */}
+                    {userData && userData?.address == safeData?.creator &&
                     // Si user = créateur, affiche qui a signé et si tout le monde a signé, propose de faire la tx de création
-                        <div>
-                            
-                            
-
-                        </div>
+                        <LaunchTX userData={userData} safeData={safeData} sid={Number(sid)} />
                     }
-                    {userData?.address != safeData?.creator &&
+                    {userData && safeData && userData?.address != safeData?.creator &&
                     // Si user != créateur,  demande de valider la création ⇒ envoie à API confirmation
                         <JoinSafe userData={userData} safeData={safeData} sid={Number(sid)} />
-
                     }
-            
-            
                 </div>
             }
 
             {safeData?.deployed &&
                 <div>
                     The Safe has been deployed
-                    <SafeCard data={safeData} />
+                    {/* <SafeCard data={safeData} /> */}
                     {userData?.address == safeData?.creator &&
                     // Si user = créateur, affiche les tx en cours et un bouton pour en créer
                         <div>
-
-
+                            You can create transactions on 
+                            <a target="_blank" href="https://gnosis-safe.io/app/" rel="noreferrer">
+                                gnosis-safe.io
+                            </a>
                         </div>
                     }
-                    {userData?.address != safeData?.creator &&
+                    {userData && userData?.address != safeData?.creator &&
                     // Si user != créateur et tx en attente, l’affiche avec son descriptif, et boutons pour accepter ou refuser.
                     // Puis envoie réponse à api
-                        <div>
+                        <ApproveOrDiscardTX userData={userData} safeData={safeData} sid={Number(sid)} />
 
-
-                        </div>
                     }
             
             
@@ -192,7 +187,6 @@ const Safe = () => {
           </h1>
     
           <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-          Safe ID: {sid} <br />
         </div>
       );
 }

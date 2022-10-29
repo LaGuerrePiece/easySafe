@@ -1,9 +1,10 @@
 import { Button, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
+import { UserData } from '../pages/safe/[sid]';
 import { editDataFromOurApi, SafeData } from '../utils/utils';
 
-export default function JoinSafe(props: {userData: any, safeData: any, sid: number}) {
+export default function JoinSafe(props: {userData: UserData, safeData: SafeData, sid: number}) {
   const [accept, setAccept] = useState<boolean>(false);
   const [decline, setDecline] = useState<boolean>(false);
 

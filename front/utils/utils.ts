@@ -3,6 +3,7 @@ import { UserData } from "../pages/safe/[sid]";
 export const serverUrl = "http://10.1.1.68:37000"
 
 export async function getSafeInfo(safeAddress: string) {
+
   try {
     const response = await fetch(`https://safe-transaction-goerli.safe.global/api/v1/safes/${safeAddress}`);
     const data = await response.json();
@@ -122,6 +123,14 @@ export async function editSafeRequest(safeData: SafeData, id: number) {
       console.log(err)
   }
 }
+export async function getTxInfoFromSafeApi() {
+
+
+
+  return {id: 1}
+}
+
+
 
 
 
