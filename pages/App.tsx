@@ -167,23 +167,13 @@ function App() {
   return (
     <div className="container">
       <h1 className="title">
-        <a target="_blank" href="http://web3auth.io/" rel="noreferrer">
-          Web3Auth
+        {"Create your "}
+        <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
+          Safe
         </a>
-        & ReactJS Example
       </h1>
 
       <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-
-      <footer className="footer">
-        <a
-          href="https://github.com/Web3Auth/examples/tree/main/web-modal-sdk/evm/nextjs-evm-web3auth-example"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Source code
-        </a>
-      </footer>
     </div>
   );
 }
