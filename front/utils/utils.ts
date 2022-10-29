@@ -133,7 +133,6 @@ export async function getTxInfoFromSafeApi() {
 
 
 
-
 // docs: https://safe-transaction-goerli.safe.global/
 
 ///v1/owners/{address}/safes/
