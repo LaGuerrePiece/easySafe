@@ -4,6 +4,7 @@ import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "../api/ethersRPC"; // for using ethers.js
 import EmailInputs from '../../components/EmailInputs';
+import { UserData } from './[sid]';
 
 import Link from 'next/link'
 
@@ -16,6 +17,7 @@ const Create = () => {
   );
 
   const [safeName, setSafeName] = useState<string>("")
+  const [userData, setUserData] = useState<UserData>();
 
   useEffect(() => {
     const init = async () => {
@@ -37,6 +39,25 @@ const Create = () => {
         if (web3auth.provider) {
           setProvider(web3auth.provider);
         }
+
+        const user = await web3auth.getUserInfo();
+        console.log("user", user);
+
+        if (!provider) {
+          console.log('error, no provider')
+          return
+        }
+
+        const rpc = new RPC(provider);
+        const address = await rpc.getAccounts();
+
+        setUserData({
+          address,
+          email: user.email,
+          idToken: user.idToken,
+          name: user.name,
+        })
+
       } catch (error) {
         console.error(error);
       }
@@ -104,7 +125,7 @@ const Create = () => {
       </div>
 
       <div className='p-4'>
-        <EmailInputs />
+        <EmailInputs creator={userData?.address} />
       </div>
     </>
   );

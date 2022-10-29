@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { createSafeRequest } from '../utils/utils';
 
-export default function EmailInputs() {
+export default function EmailInputs(props: {creator: string | undefined}) {
   const { register, control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
       emails: [{ email: "" }],
@@ -37,11 +37,12 @@ export default function EmailInputs() {
 
     //http://localhost:3000/api/createUser
 
-    // const success = await createSafeRequest({
-    //   ...data,
-    //   emails : data.emails.map((obj: any) => obj.email)
-    // })
-    // setSuccess(success)
+    const success = await createSafeRequest({
+      ...data,
+      emails: data.emails.map((obj: any) => obj.email),
+      creator: props.creator
+    })
+    setSuccess(success)
   }
 
   return (

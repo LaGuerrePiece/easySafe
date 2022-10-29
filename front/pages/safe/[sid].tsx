@@ -6,7 +6,7 @@ import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "../api/ethersRPC"; // for using ethers.js
 import EmailInputs from '../../components/EmailInputs';
 import { getSafeDataFromOurApi, SafeData } from "../../utils/utils"
-
+import SafeCard from "../../components/SafeCard"
 import Link from 'next/link'
 
 const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4";
@@ -115,13 +115,23 @@ const Safe = () => {
   
     const loggedInView = (
       <>
-            {/* {safeData?.created &&
+            {!safeData?.created &&
+                <div>
+                    The Safe has not yet been created
+                    <SafeCard data={safeData} />
+                    {userData?.address == safeData?.creator &&
+                        <div>
+
+
+                        </div>
+                    }
             
             
             
+                </div>
             }
 
-            {!safeData?.created &&
+            {/* {safeData?.created &&
           
           
           

@@ -14,7 +14,7 @@ export async function getSafeDataFromOurApi(sid: string) {
       const response = await fetch(`http://localhost:1337/api/safe/${sid}`);
       const data = await response.json();
       console.log("getSafeDataFromOurApi", data);
-      
+
       return data
     } catch (err) {
       console.log(err)
@@ -23,7 +23,8 @@ export async function getSafeDataFromOurApi(sid: string) {
 
 export type SafeData = {
   emails: string[],
-  numberOfSigners: string
+  numberOfSigners: string,
+  creator: string
 }
 
 export async function createSafeRequest(safeData: SafeData) {
