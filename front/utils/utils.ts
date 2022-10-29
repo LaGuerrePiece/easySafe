@@ -9,14 +9,39 @@ export async function getSafeInfo(safeAddress: string) {
   }
 }
 
-
-export async function getSafeData(sid: string) {
-  const response = await fetch(`http://localhost:1337/api/safe/${sid}`);
-
+export async function getSafeDataFromOurApi(sid: string) {
   try {
-      const response = await fetch(`http://localhost:1337/api/safe/1`);
+      const response = await fetch(`http://localhost:1337/api/safe/${sid}`);
       const data = await response.json();
-      console.log(data); 
+      console.log("getSafeDataFromOurApi", data);
+
+      return data
+    } catch (err) {
+      console.log(err)
+  }
+}
+
+export type SafeData = {
+  emails: string[],
+  numberOfSigners: string,
+  creator: string
+}
+
+export async function createSafeRequest(safeData: SafeData) {
+  console.log("createSafeRequest", safeData); 
+  try {
+      const response = await fetch('https://httpbin.org/post', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(safeData)
+      });
+
+      const data = await response.json();
+      console.log("response to createSafeRequest :", data);
+      return 'success'
     } catch (err) {
       console.log(err)
   }

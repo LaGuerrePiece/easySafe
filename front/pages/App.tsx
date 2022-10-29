@@ -78,6 +78,7 @@ function App() {
     const chainId = await rpc.getChainId();
     console.log(chainId);
   };
+  
   const getAccounts = async () => {
     if (!provider) {
       console.log("provider not initialized yet");

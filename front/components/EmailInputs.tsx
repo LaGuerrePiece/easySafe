@@ -6,8 +6,9 @@ import { Button, Input, InputGroup, InputLeftAddon,
   NumberDecrementStepper } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
+import { createSafeRequest } from '../utils/utils';
 
-export default function EmailInputs() {
+export default function EmailInputs(props: {creator: string | undefined}) {
   const { register, control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
       emails: [{ email: "" }],
@@ -21,6 +22,8 @@ export default function EmailInputs() {
       name: "emails"
     }
   );
+  const [success, setSuccess] = useState<string | undefined>(undefined);
+
 
   const onSubmit = async (data: any) => {
     console.log(data)
@@ -32,9 +35,15 @@ export default function EmailInputs() {
       
     });
 
-    http://localhost:3000/api/createUser
-  }
+    //http://localhost:3000/api/createUser
 
+    const success = await createSafeRequest({
+      ...data,
+      emails: data.emails.map((obj: any) => obj.email),
+      creator: props.creator
+    })
+    setSuccess(success)
+  }
 
   return (
     <div>
@@ -78,10 +87,10 @@ export default function EmailInputs() {
             </div>
           </div>
           <div className='p-2'>
-            How many owners are needed to confirm a transaction ?
+            {`How many owners out of ${fields.length} are needed to confirm a transaction ?`}
           </div>
           <div>
-            <NumberInput>
+            <NumberInput min={1} max={fields.length}>
               <NumberInputField
                 {...register("numberOfSigners")} 
               />
@@ -91,9 +100,14 @@ export default function EmailInputs() {
               </NumberInputStepper>
             </NumberInput>
           </div>
-          <div className='p-2'>
+          <div className='p-3'>
             <Button type="submit" colorScheme='blue' className='p-4'>Send invites</Button>
           </div>
+          {success && 
+            <div className='p-3'>
+              Request successful. Waiting for users to respond !
+            </div>
+          }
         </div>
       </form>
     </div>
