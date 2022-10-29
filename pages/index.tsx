@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 import dynamic from "next/dynamic";
+import { ThemeProvider } from 'styled-components';
+import { theme } from '@gnosis.pm/safe-react-components';
 
 const App = dynamic(
   () => {
@@ -8,8 +10,10 @@ const App = dynamic(
   { ssr: false }
 );
 
-const Home: NextPage = () => {
-  return <App />;
-}
+const Home: NextPage = () => (
+    <ThemeProvider theme={theme}>
+        <App />
+    </ThemeProvider>
+)
 
 export default Home
