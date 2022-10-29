@@ -2,8 +2,8 @@ import { Button, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
-import RPC from "../../api/ethersRPC"; // for using ethers.js
-import EmailInputs from '../../../components/EmailInputs';
+import RPC from "../api/ethersRPC"; // for using ethers.js
+import EmailInputs from '../../components/EmailInputs';
 
 import Link from 'next/link'
 

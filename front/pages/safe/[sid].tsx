@@ -5,11 +5,22 @@ import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "../api/ethersRPC"; // for using ethers.js
 import EmailInputs from '../../components/EmailInputs';
-import { getSafeData } from "../../utils/utils"
+import { getSafeDataFromOurApi, SafeData } from "../../utils/utils"
 
 import Link from 'next/link'
 
 const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4";
+
+export interface SafeDataFromApi extends SafeData {
+    created: boolean
+}
+
+export type UserData = {
+    address: string
+    email?: string
+    idToken?: string
+    name?: string
+}
 
 const Safe = () => {
     const router = useRouter()
@@ -19,7 +30,10 @@ const Safe = () => {
     const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
       null
     );
-  
+
+    const [safeData, setSafeData] = useState<SafeDataFromApi>();
+    const [userData, setUserData] = useState<UserData>();
+
 
     useEffect(() => {
       const init = async () => {
@@ -41,9 +55,29 @@ const Safe = () => {
           if (web3auth.provider) {
             setProvider(web3auth.provider);
           }
-          await getSafeData(sid)
 
+          const safeDataFromOurApi = await getSafeDataFromOurApi(sid)
+          
+          if (safeDataFromOurApi) {
+            setSafeData(safeDataFromOurApi)
+          }
+          const user = await web3auth.getUserInfo();
+          console.log("user", user);
 
+          if (!provider) {
+            console.log('error, no provider')
+            return
+          }
+
+          const rpc = new RPC(provider);
+          const address = await rpc.getAccounts();
+
+          setUserData({
+            address,
+            email: user.email,
+            idToken: user.idToken,
+            name: user.name,
+          })
 
         } catch (error) {
           console.error(error);
@@ -60,15 +94,6 @@ const Safe = () => {
       }
       const web3authProvider = await web3auth.connect();
       setProvider(web3authProvider);
-    };
-  
-    const getUserInfo = async () => {
-      if (!web3auth) {
-        console.log("web3auth not initialized yet");
-        return;
-      }
-      const user = await web3auth.getUserInfo();
-      console.log(user);
     };
   
     const logout = async () => {
@@ -90,6 +115,19 @@ const Safe = () => {
   
     const loggedInView = (
       <>
+            {/* {safeData?.created &&
+            
+            
+            
+            }
+
+            {!safeData?.created &&
+          
+          
+          
+            } */}
+
+
         <div className='p-4'>
         
         </div>
@@ -110,9 +148,6 @@ const Safe = () => {
       <Button onClick={login} colorScheme='blue'>Login</Button>
     );
   
-    //connect
-    //sign message to say I agree
-
     return (
         <div className="container">
           <h1 className="title">
