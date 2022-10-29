@@ -8,3 +8,5 @@ export async function getSafeInfo(safeAddress: string) {
     console.log(err)
   }
 }
+
+// docs: https://safe-transaction-goerli.safe.global/
