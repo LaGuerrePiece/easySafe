@@ -33,8 +33,8 @@ def prepareMail(to: str, link: str):
                     }
                 ],
                 "Subject": "EasySafe",
-                "TextPart": "You have beeen invited to create an EasySafe\n" + link ,
-                "HTMLPart": "You have beeen invited to create an EasySafe\n" + link
+                "TextPart": "You have been invited to create an EasySafe\n" + link ,
+                "HTMLPart": "You have been invited to create an EasySafe\n" + link
                 }
             ]
         }
@@ -79,7 +79,7 @@ def add_safe():
     safes.append(request.get_json())
     writeData("safes", safes)
     for user in request.get_json()["users"]: 
-        sendMail(prepareMail(user["email"], "http://127.0.0.1:3000/safe/" + str(len(safes))))
+        sendMail(prepareMail(user["email"], "http://127.0.0.1:3000/safe/" + str(len(safes) - 1)))
 
     return 'Ok', 200
 
