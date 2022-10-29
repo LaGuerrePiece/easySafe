@@ -8,6 +8,8 @@ import EmailInputs from '../../components/EmailInputs';
 import { getSafeDataFromOurApi, SafeData } from "../../utils/utils"
 import SafeCard from "../../components/SafeCard"
 import JoinSafe from "../../components/JoinSafe"
+import LaunchTX from "../../components/LaunchTX"
+import ApproveOrDiscardTX from "../../components/ApproveOrDiscardTX"
 import Link from 'next/link'
 
 const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4";
@@ -21,7 +23,7 @@ export type UserData = {
 
 const Safe = () => {
     const router = useRouter()
-    const {sid} = router.query as {sid: string}
+    const { sid } = router.query as {sid: string}
 
     const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
     const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
@@ -49,24 +51,29 @@ const Safe = () => {
           setWeb3auth(web3auth);
   
           await web3auth.initModal();
+
           if (web3auth.provider) {
             setProvider(web3auth.provider);
           }
 
+          
+          console.log('sid', sid)
           const safeDataFromOurApi = await getSafeDataFromOurApi(Number(sid))
+          console.log('safeDataFromOurApi', safeDataFromOurApi)
           
           if (safeDataFromOurApi) {
             setSafeData(safeDataFromOurApi)
           }
+
           const user = await web3auth.getUserInfo();
           console.log("user", user);
 
-          if (!provider) {
+          if (!web3auth.provider) {
             console.log('error, no provider')
             return
           }
 
-          const rpc = new RPC(provider);
+          const rpc = new RPC(web3auth.provider);
           const address = await rpc.getAccounts();
 
           setUserData({
@@ -81,8 +88,10 @@ const Safe = () => {
         }
       };
   
-      init();
-    }, []);
+      if(router.isReady){
+          init();
+      }
+    }, [router.isReady]);
   
     const login = async () => {
       if (!web3auth) {
@@ -102,56 +111,45 @@ const Safe = () => {
       setProvider(null);
     };
 
-    const accept = async () => {
-
-    };
-  
-    const decline = async () => {
-
-    };
-  
     const loggedInView = (
       <>
-            {!safeData?.deployed &&
+        <div>
+            {/* {`${safeData}`} */}
+            {userData && userData.address}
+
+            {safeData && "   " + safeData.creator}
+        </div>
+            {safeData && !safeData.deployed &&
                 <div>
-                    The Safe has not yet been deployed
-                    <SafeCard data={safeData} />
-                    {userData?.address == safeData?.creator &&
+                    {/* The Safe has not yet been deployed */}
+                    {userData && userData.address == safeData.creator &&
                     // Si user = créateur, affiche qui a signé et si tout le monde a signé, propose de faire la tx de création
-                        <div>
-                            
-                            
-
-                        </div>
+                        <LaunchTX userData={userData} safeData={safeData} sid={Number(sid)} />
                     }
-                    {userData?.address != safeData?.creator &&
-                    // Si user != créateur,  demande de valider la création ⇒ envoie à API confirmation
+                    {userData && safeData && userData.address != safeData.creator &&
+                    // Si user != créateur, demande de valider la création ⇒ envoie à API confirmation
                         <JoinSafe userData={userData} safeData={safeData} sid={Number(sid)} />
-
                     }
-            
-            
                 </div>
             }
 
-            {safeData?.deployed &&
+            {safeData && safeData.deployed &&
                 <div>
                     The Safe has been deployed
-                    <SafeCard data={safeData} />
-                    {userData?.address == safeData?.creator &&
+                    {userData && userData.address == safeData.creator &&
                     // Si user = créateur, affiche les tx en cours et un bouton pour en créer
                         <div>
-
-
+                            You can create transactions on 
+                            <a target="_blank" href="https://gnosis-safe.io/app/" rel="noreferrer">
+                                gnosis-safe.io
+                            </a>
                         </div>
                     }
-                    {userData?.address != safeData?.creator &&
+                    {userData && userData.address != safeData.creator &&
                     // Si user != créateur et tx en attente, l’affiche avec son descriptif, et boutons pour accepter ou refuser.
                     // Puis envoie réponse à api
-                        <div>
+                        <ApproveOrDiscardTX userData={userData} safeData={safeData} sid={Number(sid)} />
 
-
-                        </div>
                     }
             
             
@@ -159,21 +157,6 @@ const Safe = () => {
           
           
             }
-
-
-        <div className='p-4'>
-        
-        </div>
-  
-        <div className='flex p-2'>
-            <div className='p-2'>
-                <Button onClick={accept} colorScheme='blue'>Accept</Button>
-            </div>
-            <div className='p-2'>
-                <Button onClick={decline} colorScheme='blue'>Decline</Button>
-            </div>
-        </div>
-  
       </>
     );
   
@@ -182,19 +165,22 @@ const Safe = () => {
     );
   
     return (
-        <div className="container">
-          <h1 className="title">
-            You've been invited to a
-            <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
-              {" Safe "}
-            </a>
-            !
-          </h1>
-    
-          <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-          Safe ID: {sid} <br />
+        <div>
+            <div className="float-right p-4">
+                {provider && 
+                    <Button onClick={logout} colorScheme='blue'>
+                        Log Out
+                    </Button>
+                }
+            </div>
+            <div className="container">
+                <h1 className="title">
+                    Safe {sid}
+                </h1>
+                <div className="grid">{provider ? loggedInView : unloggedInView}</div>
+            </div>
         </div>
-      );
+    );
 }
 
 export default Safe

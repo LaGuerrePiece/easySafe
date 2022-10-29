@@ -40,28 +40,32 @@ const Create = () => {
           setProvider(web3auth.provider);
         }
 
-        const user = await web3auth.getUserInfo();
+        const user = await getUserInfo();
         console.log("user", user);
+        if (!user) {
+          console.log('no user')
+          return
+        }
 
-        if (!provider) {
+        if (!web3auth.provider) {
           console.log('error, no provider')
           return
         }
 
-        const rpc = new RPC(provider);
+        const rpc = new RPC(web3auth.provider);
         const address = await rpc.getAccounts();
         
         if (!address) {
           console.log('no address...')
           return
         }
+        
         setUserData({
           address,
           email: user.email,
           idToken: user.idToken,
           name: user.name,
         })
-        console.log('userData', userData)
         
       } catch (error) {
         console.error(error);
@@ -86,7 +90,7 @@ const Create = () => {
       return;
     }
     const user = await web3auth.getUserInfo();
-    console.log(user);
+    return user
   };
 
   const logout = async () => {
@@ -141,15 +145,24 @@ const Create = () => {
 
 
   return (
-    <div className="container">
-      <h1 className="title">
-        {"Create your "}
-        <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
-          Safe
-        </a>
-      </h1>
+    <div>
+      <div className="float-right p-4">
+          {provider && 
+              <Button onClick={logout} colorScheme='blue'>
+                  Log Out
+              </Button>
+          }
+      </div>
+      <div className="container">
+        <h1 className="title">
+          {"Create your "}
+          <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
+            Safe
+          </a>
+        </h1>
 
-      <div className="grid">{provider ? loggedInView : unloggedInView}</div>
+        <div className="grid">{provider ? loggedInView : unloggedInView}</div>
+      </div>
     </div>
   )
 }
