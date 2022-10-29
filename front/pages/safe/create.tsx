@@ -130,7 +130,7 @@ const Create = () => {
       </div>
 
       <div className='p-4'>
-        <EmailInputs creator={userData?.address} />
+        <EmailInputs creator={userData?.address} name={safeName} />
       </div>
     </>
   );
