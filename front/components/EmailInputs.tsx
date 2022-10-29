@@ -26,11 +26,15 @@ export default function EmailInputs() {
   );
 
   const onSubmit = async (data: any) => {
-    
     console.log(data)
     axios.post(baseURL + "/easy-safe-users").then((response) => {
       console.log(response);
     });
+    data.emails.forEach((email: String)  => {
+      console.log(email);
+      // functionToSendEmail(email);
+    });
+
   }
 
 
@@ -76,7 +80,7 @@ export default function EmailInputs() {
             </div>
           </div>
           <div className='p-2'>
-            Of many owners need to confirm transactions ?
+            How many owners are needed to confirm a transaction ?
           </div>
           <div>
             <NumberInput>

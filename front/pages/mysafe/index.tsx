@@ -6,7 +6,7 @@ import RPC from "../api/ethersRPC"; // for using ethers.js
 
 import Link from 'next/link'
 
-const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4"; // get from https://dashboard.web3auth.io
+const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4";
 
 function App() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
