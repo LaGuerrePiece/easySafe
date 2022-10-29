@@ -6,6 +6,8 @@ import RPC from "../api/ethersRPC"; // for using ethers.js
 
 import Link from 'next/link'
 
+import { getUserSafes, getSafeTxs } from "../../utils/utils"
+
 const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4";
 
 function App() {
@@ -13,6 +15,31 @@ function App() {
   const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
     null
   );
+
+
+
+
+  // GET DATA FROM SAFE's API
+
+  const [txData, setTxData] = useState<any>();
+  async function updateTxInfo() {
+    const safe = await getUserSafes("0x0a7792C2fD7bF4bC25f4d3735E8aD9f59570aCBe");
+    console.log("Safe:", safe);
+    console.log("Safe[0]:", safe.safes[0]);
+    const txs = await getSafeTxs(safe.safes)
+    console.log("txs", txs)
+    setTxData(txs.results[0])
+  }
+
+  useEffect(() => {
+    updateTxInfo()
+  }, [])
+
+
+  console.log("txData: ", txData);
+
+
+
 
   useEffect(() => {
     const init = async () => {
