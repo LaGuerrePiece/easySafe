@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "easy_safes",
+  "info": {
+    "singularName": "easy-safe",
+    "pluralName": "easy-safes",
+    "displayName": "UserSafe",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "UID": {
+      "type": "uid"
+    },
+    "easy_safe_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::easy-safe-user.easy-safe-user"
+    },
+    "safes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::safe.safe",
+      "mappedBy": "user_safe"
+    }
+  }
+}

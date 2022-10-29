@@ -10,3 +10,5 @@ export async function getSafeInfo(safeAddress: string) {
 }
 
 // docs: https://safe-transaction-goerli.safe.global/
+
+///v1/owners/{address}/safes/
