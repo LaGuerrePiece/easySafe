@@ -96,5 +96,24 @@
                 "joined": false
             }
         ]
+    },
+    {
+        "name": "OueshSafe",
+        "safeAddr": "",
+        "numberOfSigners": "2",
+        "numberOfUsers": 2,
+        "deployed": false,
+        "users": [
+            {
+                "email": "florent.tavernier@gmail.com",
+                "address": "",
+                "joined": false
+            },
+            {
+                "email": "nicolasletimon@gmail.com",
+                "address": "",
+                "joined": false
+            }
+        ]
     }
 ]

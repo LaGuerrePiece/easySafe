@@ -84,9 +84,9 @@ def add_safe():
     return 'Ok', 200
 
 @app.route('/editSafe', methods=['POST'])
-def add_income():
+def editSafe():
     id = request.args.get('id')
-    safes[id] = request.get_json()
+    safes[int(id)] = request.get_json()
     writeData("safes", safes)
     return '', 204
 
