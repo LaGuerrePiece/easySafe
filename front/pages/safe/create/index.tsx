@@ -1,13 +1,13 @@
-import { Button, Input } from '@chakra-ui/react'
+import { Button, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "../../api/ethersRPC"; // for using ethers.js
+import EmailInputs from '../../../components/EmailInputs';
 
 import Link from 'next/link'
 
 const clientId = "BF_b5Nq9Q45tOVH24q1ra0O9cZITK2R84Wlhw39iPb2nSPBs2J47naol_6iBf8h3BDgAGBA6Avf0Af8IwENjCQ4"; // get from https://dashboard.web3auth.io
-
 
 const Create = () => {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
@@ -16,7 +16,6 @@ const Create = () => {
   );
 
   const [safeName, setSafeName] = useState<string>("")
-
 
   useEffect(() => {
     const init = async () => {
@@ -74,42 +73,39 @@ const Create = () => {
   };
 
   const handleSafeNameChange = (event: any) => {
-    setSafeName(event)
+    setSafeName(event.target.value)
   }
 
   const sendInvites = async () => {
     console.log('safeName', safeName)
-
   }
+
+
+
+
 
   const loggedInView = (
     <>
-    Creating Safe on Goerli
-      {/* <ul>
-        <li>
-          <Link href="/safe/1">Join</Link>
-        </li>
-      </ul> */}
-      <Input
-        onChange={handleSafeNameChange}
-        value={safeName}
-        placeholder='Name your Safe'
-      />
-
-      <button onClick={getUserInfo} className="card">
-        Get User Info
-      </button>
-
-      <button onClick={logout} className="card">
-        Log Out
-      </button>
-
-      <div id="console" style={{ whiteSpace: "pre-line" }}>
-        <p style={{ whiteSpace: "pre-line" }}></p>
+      <div className='p-4'>
+        Creating Safe on Goerli
       </div>
 
-      <Button onClick={sendInvites} colorScheme='blue'>Send invites</Button>
+      <div className='p-4'>
+        <Input
+          onChange={handleSafeNameChange}
+          value={safeName}
+          placeholder='Name your Safe'
+          className='p-4'
+        />
+      </div>
 
+      <div className='p-2'>
+        Invite other users to give their voices !
+      </div>
+
+      <div className='p-4'>
+        <EmailInputs />
+      </div>
     </>
   );
 
@@ -120,16 +116,15 @@ const Create = () => {
 
   return (
     <div className="container">
-    <h1 className="title">
-      {"Create your "}
-      <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
-        Safe
-      </a>
-    </h1>
+      <h1 className="title">
+        {"Create your "}
+        <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
+          Safe
+        </a>
+      </h1>
 
-    <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-  </div>
-
+      <div className="grid">{provider ? loggedInView : unloggedInView}</div>
+    </div>
   )
 }
 
