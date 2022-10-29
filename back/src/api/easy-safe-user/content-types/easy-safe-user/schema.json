@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "easy_safe_users",
+  "info": {
+    "singularName": "easy-safe-user",
+    "pluralName": "easy-safe-users",
+    "displayName": "EasySafeUser",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email"
+    },
+    "WalletAddress": {
+      "type": "string",
+      "regex": "^0x[a-fA-F0-9]{40}$",
+      "required": false
+    },
+    "UID": {
+      "type": "uid"
+    }
+  }
+}
