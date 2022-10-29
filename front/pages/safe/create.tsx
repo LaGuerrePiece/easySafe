@@ -50,14 +50,19 @@ const Create = () => {
 
         const rpc = new RPC(provider);
         const address = await rpc.getAccounts();
-
+        
+        if (!address) {
+          console.log('no address...')
+          return
+        }
         setUserData({
           address,
           email: user.email,
           idToken: user.idToken,
           name: user.name,
         })
-
+        console.log('userData', userData)
+        
       } catch (error) {
         console.error(error);
       }
