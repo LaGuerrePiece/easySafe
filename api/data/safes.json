@@ -1,0 +1,55 @@
+[
+    {
+        "name": " ",
+        "safeAddr": "",
+        "numberOfSigners": 2,
+        "numberOfUsers": 3,
+        "creator": "0x...",
+        "deployed": false,
+        "users": [
+            {
+                "email": "aa@aaa.fr",
+                "address": "0x00",
+                "joined": false
+            }
+        ]
+    },
+    {
+        "name": "nameOfTheSafe",
+        "safeAddr": "",
+        "numberOfSigners": "2",
+        "numberOfUsers": 2,
+        "deployed": false,
+        "users": [
+            {
+                "email": "azeaze",
+                "address": "",
+                "joined": false
+            },
+            {
+                "email": "azeaze",
+                "address": "",
+                "joined": false
+            }
+        ]
+    },
+    {
+        "name": "nameOfTheSafe",
+        "safeAddr": "",
+        "numberOfSigners": "2",
+        "numberOfUsers": 2,
+        "deployed": false,
+        "users": [
+            {
+                "email": "azeaze",
+                "address": "",
+                "joined": false
+            },
+            {
+                "email": "azeaze",
+                "address": "",
+                "joined": false
+            }
+        ]
+    }
+]
