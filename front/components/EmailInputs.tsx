@@ -6,6 +6,9 @@ import { Button, Input, InputGroup, InputLeftAddon,
   NumberDecrementStepper } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
+import axios from "axios";
+
+const baseURL = "http://localhost:1337/api";
 
 export default function EmailInputs() {
   const { register, control, handleSubmit, reset, watch } = useForm({
@@ -25,6 +28,9 @@ export default function EmailInputs() {
   const onSubmit = async (data: any) => {
     
     console.log(data)
+    axios.post(baseURL + "/easy-safe-users").then((response) => {
+      console.log(response);
+    });
   }
 
 

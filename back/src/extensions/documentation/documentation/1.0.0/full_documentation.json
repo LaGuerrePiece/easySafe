@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2022-10-29T15:33:25.443Z"
+    "x-generation-date": "2022-10-29T16:26:56.103Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -590,6 +590,12 @@
                                 }
                               }
                             },
+                            "numberOfSign": {
+                              "type": "integer"
+                            },
+                            "numberOfUsers": {
+                              "type": "integer"
+                            },
                             "createdAt": {
                               "type": "string",
                               "format": "date-time"
@@ -1153,6 +1159,12 @@
                                   }
                                 }
                               }
+                            },
+                            "numberOfSign": {
+                              "type": "integer"
+                            },
+                            "numberOfUsers": {
+                              "type": "integer"
                             },
                             "createdAt": {
                               "type": "string",
@@ -1751,6 +1763,12 @@
                                 }
                               }
                             },
+                            "numberOfSign": {
+                              "type": "integer"
+                            },
+                            "numberOfUsers": {
+                              "type": "integer"
+                            },
                             "createdAt": {
                               "type": "string",
                               "format": "date-time"
@@ -2314,6 +2332,12 @@
                                   }
                                 }
                               }
+                            },
+                            "numberOfSign": {
+                              "type": "integer"
+                            },
+                            "numberOfUsers": {
+                              "type": "integer"
                             },
                             "createdAt": {
                               "type": "string",
@@ -3801,6 +3825,12 @@
                   }
                 ],
                 "example": "string or id"
+              },
+              "numberOfSign": {
+                "type": "integer"
+              },
+              "numberOfUsers": {
+                "type": "integer"
               }
             }
           }
@@ -4198,6 +4228,12 @@
                                             }
                                           }
                                         },
+                                        "numberOfSign": {
+                                          "type": "integer"
+                                        },
+                                        "numberOfUsers": {
+                                          "type": "integer"
+                                        },
                                         "createdAt": {
                                           "type": "string",
                                           "format": "date-time"
@@ -4302,6 +4338,12 @@
                     }
                   }
                 }
+              },
+              "numberOfSign": {
+                "type": "integer"
+              },
+              "numberOfUsers": {
+                "type": "integer"
               },
               "createdAt": {
                 "type": "string",
@@ -4745,6 +4787,12 @@
                                             }
                                           }
                                         },
+                                        "numberOfSign": {
+                                          "type": "integer"
+                                        },
+                                        "numberOfUsers": {
+                                          "type": "integer"
+                                        },
                                         "createdAt": {
                                           "type": "string",
                                           "format": "date-time"
@@ -4849,6 +4897,12 @@
                     }
                   }
                 }
+              },
+              "numberOfSign": {
+                "type": "integer"
+              },
+              "numberOfUsers": {
+                "type": "integer"
               },
               "createdAt": {
                 "type": "string",
@@ -5325,6 +5379,12 @@
                                             }
                                           }
                                         },
+                                        "numberOfSign": {
+                                          "type": "integer"
+                                        },
+                                        "numberOfUsers": {
+                                          "type": "integer"
+                                        },
                                         "createdAt": {
                                           "type": "string",
                                           "format": "date-time"
@@ -5429,6 +5489,12 @@
                     }
                   }
                 }
+              },
+              "numberOfSign": {
+                "type": "integer"
+              },
+              "numberOfUsers": {
+                "type": "integer"
               },
               "createdAt": {
                 "type": "string",
@@ -5872,6 +5938,12 @@
                                             }
                                           }
                                         },
+                                        "numberOfSign": {
+                                          "type": "integer"
+                                        },
+                                        "numberOfUsers": {
+                                          "type": "integer"
+                                        },
                                         "createdAt": {
                                           "type": "string",
                                           "format": "date-time"
@@ -5976,6 +6048,12 @@
                     }
                   }
                 }
+              },
+              "numberOfSign": {
+                "type": "integer"
+              },
+              "numberOfUsers": {
+                "type": "integer"
               },
               "createdAt": {
                 "type": "string",
