@@ -4,3 +4,10 @@ coverage
 coverage.json
 typechain
 typechain-types
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
