@@ -124,6 +124,28 @@ export async function editSafeRequest(safeData: SafeData, id: number) {
 }
 
 
-// docs: https://safe-transaction-goerli.safe.global/
+export async function getUserSafes(userAddr: string) {
+  try {
+    const response = await fetch(`https://safe-transaction-goerli.safe.global/api/v1/owners/${userAddr}/safes/`);
+    const data = await response.json();
+    console.log(data); 
+    return data
+  } catch (err) {
+    console.log(err)
+  }
+}
 
+export async function getSafeTxs(safeAddr: string) {
+  try {
+    const response = await fetch(`https://safe-transaction-goerli.safe.global/api/v1/safes/${safeAddr}/all-transactions/`);
+    const data = await response.json();
+    console.log(data); 
+    return data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// docs: https://safe-transaction-goerli.safe.global/
 ///v1/owners/{address}/safes/
+///v1/safes/{address}/all-transactions/
