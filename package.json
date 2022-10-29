@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@gnosis.pm/safe-react-components": "^1.2.0",
     "@web3auth/base": "^3.0.0",
     "@web3auth/modal": "^3.0.2",
     "ethers": "^5.7.2",
