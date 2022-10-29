@@ -9,6 +9,20 @@ export async function getSafeInfo(safeAddress: string) {
   }
 }
 
+
+export async function getSafeData(sid: string) {
+  const response = await fetch(`http://localhost:1337/api/safe/${sid}`);
+
+  try {
+      const response = await fetch(`http://localhost:1337/api/safe/1`);
+      const data = await response.json();
+      console.log(data); 
+    } catch (err) {
+      console.log(err)
+  }
+}
+
+
 // docs: https://safe-transaction-goerli.safe.global/
 
 ///v1/owners/{address}/safes/
