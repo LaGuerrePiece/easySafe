@@ -9,12 +9,14 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
-    "@strapi/strapi": "4.4.5",
-    "@strapi/plugin-users-permissions": "4.4.5",
+    "@strapi/plugin-documentation": "4.4.5",
     "@strapi/plugin-i18n": "4.4.5",
-    "better-sqlite3": "7.4.6"
+    "@strapi/plugin-users-permissions": "4.4.5",
+    "@strapi/strapi": "4.4.5",
+    "better-sqlite3": "7.4.6",
+    "node-mailjet": "^5.1.1",
+    "strapi-provider-email-mailjet": "^4.0.0"
   },
   "author": {
     "name": "A Strapi developer"
