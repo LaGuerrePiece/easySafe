@@ -43,25 +43,25 @@ const Create = () => {
         const user = await web3auth.getUserInfo();
         console.log("user", user);
 
-        if (!provider) {
+        if (!web3auth.provider) {
           console.log('error, no provider')
           return
         }
 
-        const rpc = new RPC(provider);
+        const rpc = new RPC(web3auth.provider);
         const address = await rpc.getAccounts();
         
         if (!address) {
           console.log('no address...')
           return
         }
+        
         setUserData({
           address,
           email: user.email,
           idToken: user.idToken,
           name: user.name,
         })
-        console.log('userData', userData)
         
       } catch (error) {
         console.error(error);

@@ -12,6 +12,7 @@ export default function LaunchTX(props: {userData: UserData, safeData: SafeData,
 
   return (
     <div>
+      
     {props.safeData?.users.filter(obj => obj.joined == true).length}
     users have joined out of
     {props.safeData.numberOfSigners}

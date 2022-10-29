@@ -34,7 +34,7 @@ export default function EmailInputs(props: {creator: string | undefined, name: s
       emails: data.emails.map((obj: any) => obj.email),
       creator: props.creator
     })
-    console.log('creator', props.creator)
+
     setSuccess(success)
   }
 

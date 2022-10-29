@@ -104,26 +104,22 @@ const Safe = () => {
       setProvider(null);
     };
 
-    const accept = async () => {
-
-    };
-  
-    const decline = async () => {
-
-    };
-  
     const loggedInView = (
       <>
+        <div>
+            {/* {`${safeData}`} */}
+            {/* {userData} */}
+        </div>
             {!safeData?.deployed &&
                 <div>
-                    The Safe has not yet been deployed
+                    {/* The Safe has not yet been deployed */}
                     {/* <SafeCard data={safeData} /> */}
                     {userData && userData?.address == safeData?.creator &&
                     // Si user = créateur, affiche qui a signé et si tout le monde a signé, propose de faire la tx de création
                         <LaunchTX userData={userData} safeData={safeData} sid={Number(sid)} />
                     }
                     {userData && safeData && userData?.address != safeData?.creator &&
-                    // Si user != créateur,  demande de valider la création ⇒ envoie à API confirmation
+                    // Si user != créateur, demande de valider la création ⇒ envoie à API confirmation
                         <JoinSafe userData={userData} safeData={safeData} sid={Number(sid)} />
                     }
                 </div>
@@ -154,21 +150,6 @@ const Safe = () => {
           
           
             }
-
-
-        <div className='p-4'>
-        
-        </div>
-  
-        <div className='flex p-2'>
-            <div className='p-2'>
-                <Button onClick={accept} colorScheme='blue'>Accept</Button>
-            </div>
-            <div className='p-2'>
-                <Button onClick={decline} colorScheme='blue'>Decline</Button>
-            </div>
-        </div>
-  
       </>
     );
   
@@ -178,15 +159,17 @@ const Safe = () => {
   
     return (
         <div className="container">
-          <h1 className="title">
-            You've been invited to a
-            <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
-              {" Safe "}
-            </a>
-            !
-          </h1>
-    
-          <div className="grid">{provider ? loggedInView : unloggedInView}</div>
+            <div className="float-right">
+
+                <Button onClick={logout} colorScheme='blue'>
+                    Log Out
+                </Button>
+            </div>
+            <h1 className="title">
+                Safe {sid}
+            </h1>
+        
+            <div className="grid">{provider ? loggedInView : unloggedInView}</div>
         </div>
       );
 }

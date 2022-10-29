@@ -11,7 +11,6 @@ type TxData = {
 export default function ApproveOrDiscardTX(props: {userData: UserData, safeData: SafeData, sid: number}) {
   const [txData, setTxData] = useState<TxData>();
 
-
   async function updateTxInfo() {
     const txInfo = await getTxInfoFromSafeApi()
     setTxData(txInfo)

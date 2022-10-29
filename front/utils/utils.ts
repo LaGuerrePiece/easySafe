@@ -1,5 +1,6 @@
 import { UserData } from "../pages/safe/[sid]";
 
+// export const serverUrl = "http://10.1.1.68:37000"
 export const serverUrl = "http://10.1.1.68:37000"
 
 export async function getSafeInfo(safeAddress: string) {
@@ -20,7 +21,7 @@ export async function getSafeDataFromOurApi(sid: number) {
       const data = await response.json();
       console.log("getSafeDataFromOurApi", data);
 
-      return data[sid]
+      return data[sid - 1]
     } catch (err) {
       console.log(err)
   }
@@ -60,7 +61,6 @@ export type SafeData = {
 }
 
 export async function createSafeRequest(safeData: any) {
-  console.log("createSafeRequest", safeData);
 
   try {
       const response = await fetch(`${serverUrl}/createSafe`, {
@@ -72,7 +72,7 @@ export async function createSafeRequest(safeData: any) {
         body: JSON.stringify({
           "name": safeData.name,
           "safeAddr": "",
-          "numberOfSigners": safeData.numberOfSigners,
+          "numberOfSigners": Number(safeData.numberOfSigners),
           "numberOfUsers": safeData.emails.length,
           "creator": safeData.creator,
           "deployed": false,
@@ -85,6 +85,22 @@ export async function createSafeRequest(safeData: any) {
           })
         })
       });
+
+      console.log('body', {
+        "name": safeData.name,
+        "safeAddr": "",
+        "numberOfSigners": safeData.numberOfSigners,
+        "numberOfUsers": safeData.emails.length,
+        "creator": safeData.creator,
+        "deployed": false,
+        "users": safeData.emails.map((email: any) => {
+          return {
+            "email": email,
+            "address": "",
+            "joined": false
+          }
+        })
+      })
 
       if (response.ok) {
         return 'success'

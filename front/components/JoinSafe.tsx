@@ -16,6 +16,13 @@ export default function JoinSafe(props: {userData: UserData, safeData: SafeData,
 
   return (
     <div>
+      <h1 className="title">
+        You've been invited to a
+        <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
+          {" Safe "}
+        </a>
+        !
+      </h1>
       You will join safe {props.safeData?.name}
       <div className='flex p-2'>
           <div className='p-2'>
