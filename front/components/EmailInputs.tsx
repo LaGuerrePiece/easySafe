@@ -70,7 +70,7 @@ export default function EmailInputs() {
             </div>
           </div>
           <div className='p-2'>
-            Of many owners need to confirm transactions ?
+            How many owners are needed to confirm a transaction ?
           </div>
           <div>
             <NumberInput>
