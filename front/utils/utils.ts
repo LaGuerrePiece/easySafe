@@ -66,6 +66,42 @@ export async function createSafeRequest(safeData: SafeData) {
   }
 }
 
+export async function editSafeRequest(safeData: SafeData, safeId: Number) {
+  console.log("createSafeRequest", safeData);
+
+  //editSafe?id=
+  try {
+      const response = await fetch(`${serverUrl}/editSafe?id=${safeId}`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "name": safeData.name,
+          "safeAddr": "",
+          "numberOfSigners": safeData.numberOfSigners,
+          "numberOfUsers": safeData.emails.length,
+          "creator": safeData.creator,
+          "deployed": false,
+          "users": safeData.emails.map(email => {
+            return {
+              "email": email,
+              "address": "",
+              "joined": false
+            }
+          })
+        })
+      });
+
+      if (response.ok) {
+        return 'success'
+      }
+    } catch (err) {
+      console.log(err)
+  }
+}
+
 
 // docs: https://safe-transaction-goerli.safe.global/
 
