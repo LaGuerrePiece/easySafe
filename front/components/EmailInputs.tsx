@@ -39,7 +39,7 @@ export default function EmailInputs(props: {creator: string | undefined, name: s
   }
 
   return (
-    <div>
+    <div className="grid">
       <form onSubmit={handleSubmit(onSubmit)}>
         <ul>
           {fields.map((item, index) => {

@@ -1,7 +1,7 @@
 import { UserData } from "../pages/safe/[sid]";
 
-// export const serverUrl = "http://10.1.1.68:37000"
 export const serverUrl = "http://10.1.1.68:37000"
+// export const serverUrl = "http://127.0.0.1:37000"
 
 export async function getSafeInfo(safeAddress: string) {
 
@@ -21,17 +21,22 @@ export async function getSafeDataFromOurApi(sid: number) {
       const data = await response.json();
       console.log("getSafeDataFromOurApi", data);
 
-      return data[sid - 1]
+      return data[sid]
     } catch (err) {
       console.log(err)
   }
 }
 
-export async function editDataFromOurApi(userData: UserData, safeData: SafeData, sid: number) {
-  console.log('editDataFromOurApi', userData, safeData, sid)
+export async function setNewUserJoined(userData: UserData, safeData: SafeData, sid: number) {
+  console.log('setNewUserJoined', userData, safeData, sid)
 
+  console.log('avant', safeData)
   let res = safeData
   const indexOfUser = res.users.findIndex((obj: any) => obj.email == userData.email)
+  if (indexOfUser == -1) {
+    console.log("email not found")
+    return
+  }
   const newData = {
     "email": res.users[indexOfUser].email,
     "address": userData.address,
@@ -40,7 +45,7 @@ export async function editDataFromOurApi(userData: UserData, safeData: SafeData,
 
   res.users[indexOfUser] = newData
 
-  console.log('editSafeRequest', res, sid)
+  console.log('apres', res)
   editSafeRequest(res, sid)
 }
 
@@ -111,9 +116,7 @@ export async function createSafeRequest(safeData: any) {
 }
 
 export async function editSafeRequest(safeData: SafeData, id: number) {
-  console.log("editSafeRequest", safeData);
 
-  //editSafe?id=
   try {
       const response = await fetch(`${serverUrl}/editSafe?id=${id}`, {
         method: 'POST',
@@ -139,6 +142,8 @@ export async function editSafeRequest(safeData: SafeData, id: number) {
       console.log(err)
   }
 }
+
+
 export async function getTxInfoFromSafeApi() {
 
 

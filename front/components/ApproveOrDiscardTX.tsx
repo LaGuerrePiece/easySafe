@@ -25,7 +25,7 @@ export default function ApproveOrDiscardTX(props: {userData: UserData, safeData:
   }
 
   return (
-    <div>
+    <div className="grid">
       Here is the last transaction proposition.
       {txData &&
       <div>

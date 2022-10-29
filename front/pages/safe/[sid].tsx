@@ -23,7 +23,7 @@ export type UserData = {
 
 const Safe = () => {
     const router = useRouter()
-    const {sid} = router.query as {sid: string}
+    const { sid } = router.query as {sid: string}
 
     const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
     const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
@@ -51,24 +51,29 @@ const Safe = () => {
           setWeb3auth(web3auth);
   
           await web3auth.initModal();
+
           if (web3auth.provider) {
             setProvider(web3auth.provider);
           }
 
+          
+          console.log('sid', sid)
           const safeDataFromOurApi = await getSafeDataFromOurApi(Number(sid))
+          console.log('safeDataFromOurApi', safeDataFromOurApi)
           
           if (safeDataFromOurApi) {
             setSafeData(safeDataFromOurApi)
           }
+
           const user = await web3auth.getUserInfo();
           console.log("user", user);
 
-          if (!provider) {
+          if (!web3auth.provider) {
             console.log('error, no provider')
             return
           }
 
-          const rpc = new RPC(provider);
+          const rpc = new RPC(web3auth.provider);
           const address = await rpc.getAccounts();
 
           setUserData({
@@ -83,8 +88,10 @@ const Safe = () => {
         }
       };
   
-      init();
-    }, []);
+      if(router.isReady){
+          init();
+      }
+    }, [router.isReady]);
   
     const login = async () => {
       if (!web3auth) {
@@ -108,28 +115,28 @@ const Safe = () => {
       <>
         <div>
             {/* {`${safeData}`} */}
-            {/* {userData} */}
+            {userData && userData.address}
+
+            {safeData && "   " + safeData.creator}
         </div>
-            {!safeData?.deployed &&
+            {safeData && !safeData.deployed &&
                 <div>
                     {/* The Safe has not yet been deployed */}
-                    {/* <SafeCard data={safeData} /> */}
-                    {userData && userData?.address == safeData?.creator &&
+                    {userData && userData.address == safeData.creator &&
                     // Si user = créateur, affiche qui a signé et si tout le monde a signé, propose de faire la tx de création
                         <LaunchTX userData={userData} safeData={safeData} sid={Number(sid)} />
                     }
-                    {userData && safeData && userData?.address != safeData?.creator &&
+                    {userData && safeData && userData.address != safeData.creator &&
                     // Si user != créateur, demande de valider la création ⇒ envoie à API confirmation
                         <JoinSafe userData={userData} safeData={safeData} sid={Number(sid)} />
                     }
                 </div>
             }
 
-            {safeData?.deployed &&
+            {safeData && safeData.deployed &&
                 <div>
                     The Safe has been deployed
-                    {/* <SafeCard data={safeData} /> */}
-                    {userData?.address == safeData?.creator &&
+                    {userData && userData.address == safeData.creator &&
                     // Si user = créateur, affiche les tx en cours et un bouton pour en créer
                         <div>
                             You can create transactions on 
@@ -138,7 +145,7 @@ const Safe = () => {
                             </a>
                         </div>
                     }
-                    {userData && userData?.address != safeData?.creator &&
+                    {userData && userData.address != safeData.creator &&
                     // Si user != créateur et tx en attente, l’affiche avec son descriptif, et boutons pour accepter ou refuser.
                     // Puis envoie réponse à api
                         <ApproveOrDiscardTX userData={userData} safeData={safeData} sid={Number(sid)} />
@@ -158,20 +165,22 @@ const Safe = () => {
     );
   
     return (
-        <div className="container">
-            <div className="float-right">
-
-                <Button onClick={logout} colorScheme='blue'>
-                    Log Out
-                </Button>
+        <div>
+            <div className="float-right p-4">
+                {provider && 
+                    <Button onClick={logout} colorScheme='blue'>
+                        Log Out
+                    </Button>
+                }
             </div>
-            <h1 className="title">
-                Safe {sid}
-            </h1>
-        
-            <div className="grid">{provider ? loggedInView : unloggedInView}</div>
+            <div className="container">
+                <h1 className="title">
+                    Safe {sid}
+                </h1>
+                <div className="grid">{provider ? loggedInView : unloggedInView}</div>
+            </div>
         </div>
-      );
+    );
 }
 
 export default Safe
