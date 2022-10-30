@@ -63,6 +63,13 @@ export type SafeData = {
     address: string
     joined: boolean
   }[],
+  transactions: {
+    hash: string,
+    signatures: {
+      address: string,
+      signature: string
+    }[]
+  }[]
 }
 
 export async function createSafeRequest(safeData: any) {
@@ -87,7 +94,8 @@ export async function createSafeRequest(safeData: any) {
               "address": "",
               "joined": false
             }
-          })
+          }),
+          "transactions": []
         })
       });
 
@@ -131,7 +139,8 @@ export async function editSafeRequest(safeData: SafeData, id: number) {
           "numberOfUsers": safeData.numberOfUsers,
           "creator": safeData.creator,
           "deployed": safeData.deployed,
-          "users": safeData.users
+          "users": safeData.users,
+          "transactions": safeData.transactions
         })
       });
 

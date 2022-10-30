@@ -16,9 +16,6 @@ function App() {
     null
   );
 
-
-
-
   // GET DATA FROM SAFE's API
 
   const [sgn, setSgn] = useState<any>();
