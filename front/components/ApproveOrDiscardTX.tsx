@@ -2,7 +2,7 @@ import { Button, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { UserData } from '../pages/safe/[sid]';
-import { getTxInfoFromSafeApi, SafeData } from '../utils/utils';
+import { getSafeTxs, SafeData } from '../utils/utils';
 
 type TxData = {
   id: number
@@ -12,7 +12,12 @@ export default function ApproveOrDiscardTX(props: {userData: UserData, safeData:
   const [txData, setTxData] = useState<TxData>();
 
   async function updateTxInfo() {
-    const txInfo = await getTxInfoFromSafeApi()
+    const txInfo = await getSafeTxs(props.safeData.safeAddr)
+    console.log('txInfo', txInfo)
+    console.log("safeTxHash: ", txInfo.results[0].safeTxHash);
+    // const signature = await signHash(txs.results[0].safeTxHash);
+    // console.log("signature from updateTxInfo: ", signature);
+
     setTxData(txInfo)
   }
 
@@ -26,12 +31,13 @@ export default function ApproveOrDiscardTX(props: {userData: UserData, safeData:
 
   return (
     <div className="grid">
-      Here is the last transaction proposition.
+      Here is the last transaction proposed.
+
       {txData &&
-      <div>
-        {txData.id}
-      </div>
-        }
+        <div>
+          {txData.id}
+        </div>
+      }
     </div>
   );
 }

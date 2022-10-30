@@ -16,12 +16,10 @@ function App() {
     null
   );
 
-
-
-
   // GET DATA FROM SAFE's API
 
   const [sgn, setSgn] = useState<any>();
+
   async function updateTxInfo() {
     const safe = await getUserSafes("0x0a7792C2fD7bF4bC25f4d3735E8aD9f59570aCBe");
     console.log("Safe:", safe);
@@ -30,6 +28,8 @@ function App() {
     console.log("txs", txs)
     console.log("safeTxHash: ", txs.results[0].safeTxHash);
     const signature = await signHash(txs.results[0].safeTxHash);
+    console.log("signature from updateTxInfo: ", signature);
+
     setSgn(signature)
   }
 
@@ -38,7 +38,6 @@ function App() {
   }, [])
 
 
-  console.log("signature: ", sgn);
 
 
 
@@ -132,11 +131,12 @@ function App() {
 
   const loggedInView = (
     <>
-    <ul>
-      <li>
-        <Link href="/safe/1">Join</Link>
-      </li>
-    </ul>
+      <ul>
+        <li>
+          <Link href="/safe/1">Join</Link>
+        </li>
+      </ul>
+      Signature : {sgn}
       <div id="console" style={{ whiteSpace: "pre-line" }}>
         <p style={{ whiteSpace: "pre-line" }}></p>
       </div>

@@ -36,12 +36,15 @@ const Create = () => {
         setWeb3auth(web3auth);
 
         await web3auth.initModal();
+
         if (web3auth.provider) {
           setProvider(web3auth.provider);
         }
 
-        const user = await getUserInfo();
+        const user = await web3auth.getUserInfo();
+
         console.log("user", user);
+        
         if (!user) {
           console.log('no user')
           return
@@ -130,9 +133,11 @@ const Create = () => {
         Invite other users to give their voices !
       </div>
 
-      <div className=''>
-        <EmailInputs creator={userData?.address} name={safeName} />
-      </div>
+      {userData &&
+        <div className=''>
+          <EmailInputs creator={userData?.address} name={safeName} />
+        </div>
+      }
     </div>
   );
 

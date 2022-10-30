@@ -55,7 +55,6 @@ const Safe = () => {
           if (web3auth.provider) {
             setProvider(web3auth.provider);
           }
-
           
           console.log('sid', sid)
           const safeDataFromOurApi = await getSafeDataFromOurApi(Number(sid))
@@ -88,8 +87,8 @@ const Safe = () => {
         }
       };
   
-      if(router.isReady){
-          init();
+      if (router.isReady) {
+        init();
       }
     }, [router.isReady]);
   
@@ -142,10 +141,8 @@ const Safe = () => {
               } sid={Number(sid)} />
           </div>
         <div>
-            {/* {`${safeData}`} */}
-            {userData && userData.address}
-
-            {safeData && "   " + safeData.creator}
+            {/* {userData && userData.address} */}
+            {/* {safeData && "   " + safeData.creator} */}
         </div>
             {safeData && !safeData.deployed &&
                 <div>
