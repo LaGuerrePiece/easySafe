@@ -112,6 +112,34 @@ const Safe = () => {
 
     const loggedInView = (
       <>
+          <div>
+              <LaunchTX userData={    {address: "0x12",
+                  email: "lol@gmail.com",
+                  idToken: "tokenID",
+                  name: "lolo"}} safeData={{name: "safeName",
+                  safeAddr: "0x124",
+                  numberOfSigners: 5,
+                  numberOfUsers: 5,
+                  creator: "lolo",
+                  deployed: true,
+                  users: []
+                  }
+
+                  } sid={Number(sid)} />
+              <JoinSafe userData={    {address: "0x12",
+                  email: "lol@gmail.com",
+                  idToken: "tokenID",
+                  name: "lolo"}} safeData={{name: "safeName",
+                  safeAddr: "0x124",
+                  numberOfSigners: 5,
+                  numberOfUsers: 5,
+                  creator: "lolo",
+                  deployed: true,
+                  users: []
+              }
+
+              } sid={Number(sid)} />
+          </div>
         <div>
             {/* {userData && userData.address} */}
             {/* {safeData && "   " + safeData.creator} */}
@@ -136,7 +164,7 @@ const Safe = () => {
                     {userData && userData.address == safeData.creator &&
                     // Si user = créateur, affiche les tx en cours et un bouton pour en créer
                         <div>
-                            You can create transactions on 
+                            You can create transactions on
                             <a target="_blank" href="https://gnosis-safe.io/app/" rel="noreferrer">
                                 gnosis-safe.io
                             </a>
@@ -148,34 +176,34 @@ const Safe = () => {
                         <ApproveOrDiscardTX userData={userData} safeData={safeData} sid={Number(sid)} provider={provider} />
 
                     }
-            
-            
+
+
                 </div>
-          
-          
+
+
             }
       </>
     );
-  
+
     const unloggedInView = (
-      <Button onClick={login} colorScheme='blue'>Login</Button>
+      <Button onClick={login} colorScheme='green'>Login</Button>
     );
-  
+
     return (
         <div>
-            <div className="float-right p-4">
-                {provider && 
-                    <Button onClick={logout} colorScheme='blue'>
+            <div className="container">
+                <div className="float-right">
+                    {provider &&
+                    <Button onClick={logout} colorScheme='green'>
                         Log Out
                     </Button>
-                }
-            </div>
-            <div className="container">
-                <h1 className="title">
-                    Safe {sid}
-                </h1>
-                <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-            </div>
+                    }
+                </div>
+                    <h1 className="title">
+                        Safe {sid}
+                    </h1>
+                    <div className="grid">{provider ? loggedInView : unloggedInView}</div>
+                </div>
         </div>
     );
 }

@@ -113,52 +113,49 @@ const Create = () => {
     console.log('safeName', safeName)
   }
 
-
-
-
-
   const loggedInView = (
-    <>
-      <div className='p-4'>
+    <div className="float-left">
+      <h2 className='p-4 text-lg'>
         Creating Safe on Goerli
-      </div>
+      </h2>
 
-      <div className='p-4'>
+      <div className='py-2 px-6'>
         <Input
           onChange={handleSafeNameChange}
           value={safeName}
           placeholder='Name your Safe'
-          className='p-4'
+          className='w-max'
+          width='auto'
         />
       </div>
 
-      <div className='p-2'>
+      <div className='p-4'>
         Invite other users to give their voices !
       </div>
 
       {userData &&
-        <div className='p-4'>
+        <div className=''>
           <EmailInputs creator={userData?.address} name={safeName} />
         </div>
       }
-    </>
+    </div>
   );
 
   const unloggedInView = (
-    <Button onClick={login} colorScheme='blue'>Login</Button>
+    <Button colorScheme='green' onClick={login}>Login</Button>
   );
 
 
   return (
-    <div>
-      <div className="float-right p-4">
+      <div className="container">
+      <div className="float-right">
           {provider && 
-              <Button onClick={logout} colorScheme='blue'>
+              <Button onClick={logout} colorScheme='green'>
                   Log Out
               </Button>
           }
       </div>
-      <div className="container">
+
         <h1 className="title">
           {"Create your "}
           <a target="_blank" href="https://gnosis-safe.io/" rel="noreferrer">
@@ -167,7 +164,6 @@ const Create = () => {
         </h1>
 
         <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-      </div>
     </div>
   )
 }

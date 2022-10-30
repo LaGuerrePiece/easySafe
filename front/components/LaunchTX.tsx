@@ -28,7 +28,7 @@ export default function LaunchTX(props: {userData: UserData, safeData: SafeData,
               All is good
             </div>
             <div className="p-4">
-              <Button onClick={launchTX}>Launch TX !</Button>
+              <Button onClick={launchTX} colorScheme='green'>Launch TX !</Button>
             </div>
         </div>
     }
