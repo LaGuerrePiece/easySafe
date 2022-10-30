@@ -112,34 +112,6 @@ const Safe = () => {
 
     const loggedInView = (
       <>
-          <div>
-              <LaunchTX userData={    {address: "0x12",
-                  email: "lol@gmail.com",
-                  idToken: "tokenID",
-                  name: "lolo"}} safeData={{name: "safeName",
-                  safeAddr: "0x124",
-                  numberOfSigners: 5,
-                  numberOfUsers: 5,
-                  creator: "lolo",
-                  deployed: true,
-                  users: []
-                  }
-
-                  } sid={Number(sid)} />
-              <JoinSafe userData={    {address: "0x12",
-                  email: "lol@gmail.com",
-                  idToken: "tokenID",
-                  name: "lolo"}} safeData={{name: "safeName",
-                  safeAddr: "0x124",
-                  numberOfSigners: 5,
-                  numberOfUsers: 5,
-                  creator: "lolo",
-                  deployed: true,
-                  users: []
-              }
-
-              } sid={Number(sid)} />
-          </div>
         <div>
             {/* {userData && userData.address} */}
             {/* {safeData && "   " + safeData.creator} */}
@@ -160,7 +132,7 @@ const Safe = () => {
 
             {safeData && safeData.deployed &&
                 <div>
-                    The Safe has been deployed
+                    {/* The Safe has been deployed */}
                     {userData && userData.address == safeData.creator &&
                     // Si user = créateur, affiche les tx en cours et un bouton pour en créer
                         <div>
