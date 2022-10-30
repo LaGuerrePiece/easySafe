@@ -44,7 +44,7 @@ export default function EmailInputs(props: {creator: string | undefined, name: s
         <ul>
           {fields.map((item, index) => {
             return (
-              <li className='p-1' key={item.id}>
+              <li className='py-1 px-6' key={item.id}>
                 <InputGroup>
                   <InputLeftAddon children={`user ${index + 1}`} />
                   <Input
@@ -62,9 +62,9 @@ export default function EmailInputs(props: {creator: string | undefined, name: s
           <div className='flex'>
             <div className='p-2'>
               <Button
-                type="button"
                 onClick={() => append({ email: "" })}
-                colorScheme='blue' size="sm"
+                 size="sm"
+                  colorScheme='green'
                 >
                 +
               </Button>
@@ -73,7 +73,7 @@ export default function EmailInputs(props: {creator: string | undefined, name: s
               <Button
                 type="button"
                 onClick={() => remove(fields.length - 1)}
-                colorScheme='blue' size="sm"
+                colorScheme='green' size="sm"
                 >
                 -
               </Button>
@@ -93,8 +93,8 @@ export default function EmailInputs(props: {creator: string | undefined, name: s
               </NumberInputStepper>
             </NumberInput>
           </div>
-          <div className='p-3'>
-            <Button type="submit" colorScheme='blue' className='p-4'>Send invites</Button>
+          <div className='p-5'>
+            <Button type="submit" className='p-4' colorScheme='green'>Send invites</Button>
           </div>
           {success && 
             <div className='p-3'>

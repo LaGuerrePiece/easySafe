@@ -26,10 +26,10 @@ export default function JoinSafe(props: {userData: UserData, safeData: SafeData,
       You will join safe {props.safeData?.name}
       <div className='flex p-2'>
           <div className='p-2'>
-              <Button onClick={handleAccept} colorScheme='blue'>Accept</Button>
+              <Button onClick={handleAccept} colorScheme='green'>Accept</Button>
           </div>
           <div className='p-2'>
-              <Button onClick={() => {setDecline(true)}} colorScheme='blue'>Decline</Button>
+              <Button onClick={() => {setDecline(true)}} colorScheme='green'>Decline</Button>
           </div>
       </div>
       {accept && 

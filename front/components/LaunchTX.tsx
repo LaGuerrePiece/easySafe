@@ -2,7 +2,7 @@ import { Button, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { UserData } from '../pages/safe/[sid]';
-import { editDataFromOurApi, SafeData } from '../utils/utils';
+import { SafeData } from '../utils/utils';
 
 export default function LaunchTX(props: {userData: UserData, safeData: SafeData, sid: number}) {
 
@@ -20,7 +20,7 @@ export default function LaunchTX(props: {userData: UserData, safeData: SafeData,
     {props.safeData.numberOfSigners <= props.safeData?.users.filter(obj => obj.joined == true).length &&
         <div>
             All is good
-            <Button onClick={launchTX} colorScheme='blue'>Launch TX !</Button>
+            <Button onClick={launchTX} colorScheme='green'>Launch TX !</Button>
         </div>
     }
     {props.safeData.numberOfSigners > props.safeData?.users.filter(obj => obj.joined == true).length &&
