@@ -170,6 +170,13 @@ export async function getTxInfoFromSafeApi() {
   return {id: 1}
 }
 
+export async function updateSignatureInDb(userData: UserData, safeData: SafeData, signature: string) {
+
+
+
+  return {id: 1}
+}
+
 
 
 

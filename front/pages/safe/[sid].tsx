@@ -145,7 +145,7 @@ const Safe = () => {
                     {userData && userData.address != safeData.creator &&
                     // Si user != créateur et tx en attente, l’affiche avec son descriptif, et boutons pour accepter ou refuser.
                     // Puis envoie réponse à api
-                        <ApproveOrDiscardTX userData={userData} safeData={safeData} sid={Number(sid)} />
+                        <ApproveOrDiscardTX userData={userData} safeData={safeData} sid={Number(sid)} provider={provider} />
 
                     }
             
